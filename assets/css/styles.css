@@ -296,6 +296,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--chestnut
 .motion [data-reveal]{opacity:0;transform:translate3d(0,20px,0);
   transition:opacity .8s var(--ease-soft) var(--d,0ms),transform 1s var(--ease-soft) var(--d,0ms)}
 .motion [data-reveal].is-in{opacity:1;transform:none}
+[data-delay="90"]{--d:90ms}[data-delay="120"]{--d:120ms}[data-delay="180"]{--d:180ms}[data-delay="270"]{--d:270ms}
 @media (min-width:861px){
   .motion [data-reveal="left"]{transform:translate3d(-24px,0,0)}
   .motion [data-reveal="right"]{transform:translate3d(24px,0,0)}
