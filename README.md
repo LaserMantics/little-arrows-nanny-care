@@ -4,7 +4,9 @@ Static one-page site for Stephanie Meninga's Christian nanny business in the Tre
 Plain HTML/CSS with a little vanilla JS. **No build step.** Ready for **Cloudflare Pages** (static assets + one Pages Function for the contact form).
 
 > Status: a **demo** is live on GitHub Pages: https://lasermantics.github.io/little-arrows-nanny-care/
-> Cloudflare Pages and the stephaniemeninga.com domain are **not set up yet** (instructions below).
+> **Cloudflare Pages:** https://little-arrows-nanny-care.pages.dev/ (project `little-arrows-nanny-care`, contact function included).
+> It was deployed by **direct upload** (`wrangler pages deploy`), so pushes to GitHub do **not** redeploy it automatically yet; see "Auto-deploys" below.
+> The stephaniemeninga.com domain is **not** connected yet.
 >
 > **To change a photo:** see [`photos/README.md`](photos/README.md). Upload a new file with the same name into `photos/` and you're done.
 
@@ -48,7 +50,21 @@ On `*.github.io` the form shows a friendly note ("This is a preview… please em
 Once the site moves to Cloudflare Pages, the form works automatically through `functions/api/contact.js`.
 After moving to Cloudflare, you can turn off GitHub Pages (Settings → Pages) and make the repo private if you want.
 
-## Deploy to Cloudflare Pages from GitHub
+## Redeploying to Cloudflare (current setup: direct upload)
+
+From a copy of this repo: `npx wrangler pages deploy . --project-name little-arrows-nanny-care --branch main`
+
+## Auto-deploys from GitHub (one-time setup, needs the Cloudflare dashboard)
+
+Cloudflare can't switch a direct-upload project to Git later, so pick one of these:
+- **Option A (simplest):** Workers & Pages → delete `little-arrows-nanny-care` → Create → Pages → **Connect to Git** → authorize GitHub →
+  choose `LaserMantics/little-arrows-nanny-care` → project name `little-arrows-nanny-care`, production branch `main`, framework **None**,
+  build command empty, output directory `/` → Save and Deploy. The same `.pages.dev` address comes back, and every push redeploys.
+- **Option B (keep this project):** create a Cloudflare API token (My Profile → API Tokens → "Edit Cloudflare Workers" template, or Account → Cloudflare Pages: Edit),
+  add it to the GitHub repo as the secret `CLOUDFLARE_API_TOKEN` (plus `CLOUDFLARE_ACCOUNT_ID`), and add a GitHub Actions workflow running
+  `cloudflare/wrangler-action` with `pages deploy . --project-name little-arrows-nanny-care --branch main`.
+
+## Deploy to Cloudflare Pages from GitHub (reference)
 
 1. The repo already exists: `LaserMantics/little-arrows-nanny-care` (the repo root is the site).
 2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git** → choose the repo.
