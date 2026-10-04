@@ -73,7 +73,7 @@ After moving to Cloudflare, you can turn off GitHub Pages (Settings → Pages) a
 ## Email & contact form
 
 The form posts to `/api/contact` (`functions/api/contact.js`). It validates input, drops bot submissions via a hidden honeypot field,
-and returns JSON (or redirects to `/thanks.html` when JS is off). **Until email is configured, submissions are acknowledged but NOT delivered or stored anywhere.**
+and returns JSON (or redirects to `/thanks.html` when JS is off). **Until email is configured (no `RESEND_API_KEY`), nothing is sent or stored:** visitors see a friendly “the form isn’t connected yet, please email Stephanie at …” message instead of an error.
 Finish the setup below **before** sharing the site.
 
 1. **Set the real inbox:** edit `assets/js/config.js` → `contactEmail` (currently the placeholder `hello@stephaniemeninga.com`).

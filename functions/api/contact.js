@@ -2,9 +2,9 @@
  * Cloudflare Pages Function: POST /api/contact
  * ------------------------------------------------------------------
  * Receives the "Request care" form, validates it, and (once configured)
- * emails the inquiry to Stephanie. Until an email provider is set up it
- * simply logs the inquiry (visible in Cloudflare → Pages → Functions logs)
- * and returns a friendly success response.
+ * emails the inquiry to Stephanie. Until an email provider is set up
+ * (no RESEND_API_KEY), nothing is sent or stored: the visitor gets a friendly
+ * "the form isn't connected yet, please email instead" message (not an error).
  *
  * Recipient address comes from the single config file:
  *   assets/js/config.js  →  SITE_CONFIG.contactEmail   (PLACEHOLDER for now)
@@ -47,6 +47,12 @@ export async function onRequestPost({ request, env }) {
     receivedAt: new Date().toISOString(),
   };
 
+  if (!env || !env.RESEND_API_KEY) {
+    // Not configured yet: log only non-personal details (no names/emails in logs).
+    console.log(`[contact] Email not configured yet; visitor asked to email instead (${inquiry.service}).`);
+    return notConfigured(wantsJson);
+  }
+
   try {
     await sendInquiryEmail(inquiry, env);
   } catch (err) {
@@ -69,7 +75,7 @@ export function onRequest() {
  *   2. In Cloudflare Pages → Settings → Variables and Secrets, add the secret RESEND_API_KEY.
  *   3. (Optional) add CONTACT_FROM, e.g. "Little Arrows Website <website@stephaniemeninga.com>".
  *   4. Update SITE_CONFIG.contactEmail in assets/js/config.js to the real inbox.
- * Without RESEND_API_KEY the inquiry is only logged (safe for previews).
+ * Without RESEND_API_KEY visitors are asked to email instead (nothing is sent or stored).
  * Any provider with an HTTP API (Postmark, SendGrid, Mailgun, Cloudflare Email
  * Routing's send_email binding) can be swapped in here.
  */
@@ -91,13 +97,6 @@ async function sendInquiryEmail(q, env) {
     `Received: ${q.receivedAt}`,
   ].join("\n");
 
-  if (!env || !env.RESEND_API_KEY) {
-    // Not configured: log only non-personal details (no names/emails in logs).
-    // NOTE: inquiries are NOT stored anywhere until an email provider is set up.
-    console.log(`[contact] Email not configured yet. Inquiry received for "${q.service}" at ${q.receivedAt}.`);
-    return;
-  }
-
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
@@ -110,6 +109,18 @@ async function sendInquiryEmail(q, env) {
     }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);
+}
+
+// Friendly response while no email service is configured.
+function notConfigured(wantsJson) {
+  const email = SITE_CONFIG.contactEmail;
+  if (wantsJson) return reply(true, 200, { ok: false, notConfigured: true, email });
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Please email instead | Little Arrows Nanny Care</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/css/styles.css"></head>
+<body class="simple-page"><main class="simple"><img src="/assets/brand/logo-stacked.svg" alt="Little Arrows Nanny Care" width="420" height="220">
+<h1>Thanks for reaching out!</h1><p>The online form isn’t connected yet, so your message wasn’t sent. Please email Stephanie at <a href="mailto:${email}">${email}</a>.</p>
+<a class="btn" href="/">Back to the site</a></main></body></html>`;
+  return new Response(html, { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 }
 
 function reply(wantsJson, status, body) {

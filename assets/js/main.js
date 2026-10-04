@@ -66,13 +66,14 @@ if (form) {
   const status = form.querySelector(".form-status");
   const button = form.querySelector("button[type=submit]");
   // Static hosts (e.g. the GitHub Pages demo) can't run functions/api/contact.js,
-  // so show a friendly note instead of trying to send.
+  // and until an email service is configured the function can't deliver either.
+  // In both cases show a friendly "please email instead" note, never an error.
   const STATIC_HOST = /\.github\.io$/i.test(location.hostname);
   const showPreviewNote = () => {
     status.className = "form-status is-info";
     const email = SITE_CONFIG.contactEmail;
     status.innerHTML =
-      `<strong>Thanks for your interest!</strong> This is a preview of the website, so the form isn't connected yet. ` +
+      `<strong>Thanks for your interest!</strong> The online form isn't connected yet, so your message wasn't sent. ` +
       `For now, please email Stephanie at <a href="mailto:${email}">${email}</a>.`;
     status.focus();
   };
@@ -94,6 +95,7 @@ if (form) {
       const isJson = (res.headers.get("content-type") || "").includes("application/json");
       if (!isJson && [404, 405, 501].includes(res.status)) { showPreviewNote(); return; } // no form handler on this host
       const data = await res.json().catch(() => ({}));
+      if (data.notConfigured) { showPreviewNote(); return; } // email service not set up yet
       if (!res.ok || data.ok === false) throw new Error(data.error || "Something went wrong.");
       form.reset();
       form.classList.add("is-sent");
