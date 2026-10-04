@@ -31,8 +31,8 @@
 
   <link rel="preload" href="assets/fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/mulish.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" href="photos/hero-desktop.jpg" media="(min-width: 761px)">
-  <link rel="preload" as="image" href="photos/hero-mobile.jpg" media="(max-width: 760px)">
+  <link rel="preload" as="image" href="photos/hero-desktop.jpg" media="(min-width: 761px) and (orientation: landscape), (min-width: 1024px)" fetchpriority="high">
+  <link rel="preload" as="image" href="photos/hero-mobile.jpg" media="(max-width: 1023px) and (orientation: portrait)" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script src="assets/js/motion.js"></script>
 
@@ -95,7 +95,7 @@
     <!-- HERO -->
     <section class="hero" id="top" aria-labelledby="hero-title">
       <picture class="hero-media">
-        <source media="(max-width: 760px)" srcset="photos/hero-mobile.jpg" width="1440" height="1920">
+        <source media="(max-width: 1023px) and (orientation: portrait)" srcset="photos/hero-mobile.jpg" width="1200" height="1600">
         <img src="photos/hero-desktop.jpg" width="2000" height="1307" alt="Stephanie Meninga smiling, seated on a sunlit driftwood log among golden grasses" fetchpriority="high" decoding="async">
       </picture>
       <div class="container hero-content">
@@ -165,7 +165,7 @@
           </li>
           <li class="badge" data-reveal data-delay="180">
             <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l14 5v11c0 9.5-6 16.5-14 20-8-3.5-14-10.5-14-20V11z"/><path d="M17.5 24.5l4.5 4.5 8.5-9"/></svg>
-            <span class="badge-title">Enhanced Background Check</span><span class="badge-sub">Completed <span class="badge-sub">Cleared &amp; verified</span>amp; on file</span>
+            <span class="badge-title">Enhanced Background Check</span><span class="badge-sub">Completed &amp; on file</span>
           </li>
           <li class="badge" data-reveal data-delay="270">
             <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 18l20-9 20 9-20 9z"/><path d="M12 22v9c0 3 5.4 6 12 6s12-3 12-6v-9M44 18v10"/></svg>
