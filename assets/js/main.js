@@ -1,5 +1,35 @@
 import { SITE_CONFIG } from "./config.js";
 
+window.__littleArrows = true; // tells assets/js/motion.js that scripts loaded
+
+// Gentle reveal-on-scroll (only when <html class="motion">; see motion.js + styles.css).
+// Each element animates once; afterwards its data-reveal attribute is removed so
+// normal hover effects and transitions take over again.
+const root = document.documentElement;
+const revealEls = Array.from(document.querySelectorAll("[data-reveal]"));
+const settle = (el) => {
+  if (el.classList.contains("is-in")) return;
+  el.classList.add("is-in");
+  const delay = parseInt(getComputedStyle(el).getPropertyValue("--d"), 10) || 0;
+  setTimeout(() => { el.removeAttribute("data-reveal"); el.classList.remove("is-in"); }, delay + 1200);
+};
+if (root.classList.contains("motion") && "IntersectionObserver" in window) {
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { settle(e.target); io.unobserve(e.target); }
+  }), { rootMargin: "0px 0px -8% 0px" });
+  revealEls.forEach((el) => {
+    io.observe(el);
+    // Keyboard users: anything focused inside is shown immediately.
+    el.addEventListener("focusin", () => { settle(el); io.unobserve(el); }, { once: true });
+  });
+  // Photos hidden on small screens can't be observed; if the window is resized
+  // (e.g. a tablet rotated), simply show anything still waiting.
+  matchMedia("(min-width: 861px)").addEventListener("change", () =>
+    revealEls.forEach((el) => el.hasAttribute("data-reveal") && settle(el)), { once: true });
+} else {
+  root.classList.remove("motion");
+}
+
 // Fill every [data-email] element from the single config value.
 document.querySelectorAll("[data-email]").forEach((el) => {
   el.textContent = SITE_CONFIG.contactEmail;

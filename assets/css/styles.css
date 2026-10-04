@@ -286,3 +286,35 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--chestnut
 
 /* Demo-only notice (GitHub Pages preview, where the form can't send) */
 .form-status.is-info{display:block;padding:1rem 1.2rem;background:rgba(200,161,86,.14);border:1px solid rgba(200,161,86,.55);color:var(--espresso)}
+
+/* =====================================================================
+   GENTLE MOTION (matches Gem State Photos' reveal style, toned down)
+   Only active when <html> has .motion (added by assets/js/motion.js,
+   never for prefers-reduced-motion). Without it, everything is static.
+   ===================================================================== */
+:root{--ease-soft:cubic-bezier(.19,1,.22,1)}
+.motion [data-reveal]{opacity:0;transform:translate3d(0,20px,0);
+  transition:opacity .8s var(--ease-soft) var(--d,0ms),transform 1s var(--ease-soft) var(--d,0ms)}
+.motion [data-reveal].is-in{opacity:1;transform:none}
+@media (min-width:861px){
+  .motion [data-reveal="left"]{transform:translate3d(-24px,0,0)}
+  .motion [data-reveal="right"]{transform:translate3d(24px,0,0)}
+}
+/* Hero load-in: photo settles in, then eyebrow, title, tagline, text, buttons fade up */
+@keyframes la-photo{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
+@keyframes la-up{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
+@keyframes la-fade{from{opacity:0}to{opacity:1}}
+.motion .hero-media img{animation:la-photo 1.8s var(--ease-soft) both;transform-origin:60% 40%}
+.motion .hero-content>*{animation:la-up .9s var(--ease-soft) both}
+.motion .hero-content>:nth-child(1){animation-delay:.25s}
+.motion .hero-content>:nth-child(2){animation-delay:.36s}
+.motion .hero-content>:nth-child(3){animation-delay:.47s}
+.motion .hero-content>:nth-child(4){animation-delay:.58s}
+.motion .hero-content>:nth-child(5){animation-delay:.69s}
+.motion .hero-content>:nth-child(6){animation-delay:.80s}
+.motion .site-header .brand{animation:la-fade 1s ease-out .1s both}
+@media (min-width:861px){.motion .site-header .site-nav{animation:la-fade 1s ease-out .1s both}}
+@media (prefers-reduced-motion:reduce){
+  .motion [data-reveal]{opacity:1;transform:none;transition:none}
+  .motion .hero-media img,.motion .hero-content>*,.motion .site-header .brand,.motion .site-header .site-nav{animation:none}
+}

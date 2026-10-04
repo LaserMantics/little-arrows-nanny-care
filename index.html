@@ -34,6 +34,7 @@
   <link rel="preload" as="image" href="photos/hero-desktop.jpg" media="(min-width: 761px)">
   <link rel="preload" as="image" href="photos/hero-mobile.jpg" media="(max-width: 760px)">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/motion.js"></script>
 
   <script type="application/ld+json">
   {
@@ -120,8 +121,8 @@
     <!-- VERSE -->
     <section class="verse" aria-label="Scripture">
       <div class="container narrow">
-        <img class="verse-mark" src="assets/brand/mark.svg" alt="" width="56" height="58" loading="lazy">
-        <blockquote>
+        <img data-reveal class="verse-mark" src="assets/brand/mark.svg" alt="" width="56" height="58" loading="lazy">
+        <blockquote data-reveal style="--d:120ms">
           <p>“Children are a heritage from the Lord… Like arrows in the hand of a warrior are the children of one’s youth.”</p>
           <footer>Psalm 127:3–4 <span>(ESV)</span></footer>
         </blockquote>
@@ -131,10 +132,10 @@
     <!-- ABOUT -->
     <section class="section about" id="about" aria-labelledby="about-title">
       <div class="container about-grid">
-        <figure class="about-photo soft-photo">
+        <figure class="about-photo soft-photo" data-reveal="left">
           <img src="photos/about.jpg" width="1400" height="1750" alt="Portrait of Stephanie Meninga smiling on a misty beach" loading="lazy" decoding="async">
         </figure>
-        <div class="about-copy">
+        <div class="about-copy" data-reveal style="--d:120ms">
           <p class="eyebrow">Meet Stephanie</p>
           <h2 id="about-title">Hi, I’m Stephanie Meninga.</h2>
           <p class="lead">I believe every child is a gift from God, and caring for them is a calling I take seriously and joyfully.</p>
@@ -154,19 +155,19 @@
       <div class="container">
         <h2 id="quals-title" class="sr-only">Qualifications</h2>
         <ul class="badges">
-          <li class="badge">
+          <li class="badge" data-reveal style="--d:0ms">
             <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 41s-15-9.2-15-20.5A8.5 8.5 0 0 1 24 15a8.5 8.5 0 0 1 15 5.5C39 31.8 24 41 24 41z"/><path d="M14 25h6l2-5 4 10 2-5h6"/></svg>
             <span class="badge-title">CPR Certified</span><span class="badge-sub">Current certification</span>
           </li>
-          <li class="badge">
+          <li class="badge" data-reveal style="--d:90ms">
             <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="14" width="32" height="24" rx="4"/><path d="M18 14v-3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3M24 20v12M18 26h12"/></svg>
             <span class="badge-title">First Aid Certified</span><span class="badge-sub">Prepared &amp; calm</span>
           </li>
-          <li class="badge">
+          <li class="badge" data-reveal style="--d:180ms">
             <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l14 5v11c0 9.5-6 16.5-14 20-8-3.5-14-10.5-14-20V11z"/><path d="M17.5 24.5l4.5 4.5 8.5-9"/></svg>
             <span class="badge-title">Enhanced Background Check</span><span class="badge-sub">Completed <span class="badge-sub">Cleared &amp; verified</span>amp; on file</span>
           </li>
-          <li class="badge">
+          <li class="badge" data-reveal style="--d:270ms">
             <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 18l20-9 20 9-20 9z"/><path d="M12 22v9c0 3 5.4 6 12 6s12-3 12-6v-9M44 18v10"/></svg>
             <span class="badge-title">Early Childhood Education</span><span class="badge-sub">Bachelor’s degree in progress</span>
           </li>
@@ -177,28 +178,28 @@
     <!-- SERVICES -->
     <section class="section services" id="services" aria-labelledby="services-title">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head" data-reveal>
           <p class="eyebrow">How I can help</p>
           <h2 id="services-title">Services for every season of family life</h2>
           <p>From steady weekday care to a much-needed evening out, every visit is warm, attentive and dependable.</p>
         </header>
         <div class="service-grid">
-          <article class="service-card">
+          <article class="service-card" data-reveal style="--d:0ms">
             <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 22L24 9l16 13"/><path d="M12 19v20h24V19"/><path d="M24 35s-6-3.6-6-8a3.4 3.4 0 0 1 6-2.2 3.4 3.4 0 0 1 6 2.2c0 4.4-6 8-6 8z"/></svg>
             <h3>Full-Service Nannying</h3>
             <p>Consistent, ongoing care in your home with structure, play, learning and loving routines, arranged under a simple written agreement.</p>
           </article>
-          <article class="service-card">
+          <article class="service-card" data-reveal style="--d:90ms">
             <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="15"/><path d="M24 15v9l6 4"/></svg>
             <h3>Babysitting</h3>
             <p>Reliable occasional care for appointments, errands, school breaks and the in-between moments, with no deposit required.</p>
           </article>
-          <article class="service-card">
+          <article class="service-card" data-reveal style="--d:180ms">
             <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a14 14 0 1 0 10 22A12 12 0 0 1 30 8z"/><path d="M14 12l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/></svg>
             <h3>Weekend Date Nights</h3>
             <p>Special evenings out with peace of mind. Dinner, bath, stories and bedtime are handled with care while you reconnect.</p>
           </article>
-          <article class="service-card">
+          <article class="service-card" data-reveal style="--d:270ms">
             <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M14 22a10 10 0 0 1 20 0v4a10 10 0 0 1-20 0z"/><circle cx="20" cy="23" r="1.2"/><circle cx="28" cy="23" r="1.2"/><path d="M21 28c1.8 1.5 4.2 1.5 6 0M24 12c0-3 3-4 4-3"/></svg>
             <h3>Newborn Help</h3>
             <p>Gentle daytime support in those precious early weeks: feeding, soothing, diapering and naps, so parents can rest and recover.</p>
@@ -206,10 +207,10 @@
         </div>
 
         <div class="extras">
-          <figure class="extras-photo soft-photo">
+          <figure class="extras-photo soft-photo" data-reveal="left">
             <img src="photos/extras.jpg" width="2000" height="1498" alt="Stephanie smiling softly in a sage-green top against misty pine trees" loading="lazy" decoding="async">
           </figure>
-          <div class="extras-copy">
+          <div class="extras-copy" data-reveal style="--d:120ms">
             <p class="eyebrow">Thoughtful extras</p>
             <h3>Going above and beyond</h3>
             <ul class="check-list">
@@ -225,13 +226,13 @@
     <!-- HOME / VALUES BAND -->
     <section class="values" aria-labelledby="values-title">
       <div class="container values-grid">
-        <div class="values-copy">
+        <div class="values-copy" data-reveal>
           <p class="eyebrow eyebrow-light">In your home</p>
           <h2 id="values-title">Care that feels like family</h2>
           <p>Your home is your children’s safe place. I step into your rhythm, keep things calm and orderly, and leave every room (and every heart) a little brighter than I found it.</p>
           <p class="values-quote">“Whatever you do, work heartily, as for the Lord.” <span>Colossians 3:23</span></p>
         </div>
-        <figure class="values-photo">
+        <figure class="values-photo" data-reveal="right" style="--d:120ms">
           <img src="photos/home.jpg" width="912" height="896" alt="Stephanie relaxing at home wrapped in a cozy plaid blanket" loading="lazy" decoding="async">
         </figure>
       </div>
@@ -240,41 +241,41 @@
     <!-- RATES -->
     <section class="section rates" id="rates" aria-labelledby="rates-title">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head" data-reveal>
           <p class="eyebrow">Simple, transparent pricing</p>
           <h2 id="rates-title">Rates</h2>
         </header>
         <div class="rate-grid">
-          <article class="rate-card">
+          <article class="rate-card" data-reveal style="--d:0ms">
             <h3>Ongoing Nanny Care</h3>
             <p class="price"><span>$27</span>/hr</p>
             <ul><li>1 child</li><li>+$2/hr each additional child</li><li>Regular weekly schedule</li></ul>
           </article>
-          <article class="rate-card">
+          <article class="rate-card" data-reveal style="--d:90ms">
             <h3>Babysitting</h3>
             <p class="price"><span>$28</span>/hr</p>
             <ul><li>Up to 2 children</li><li>+$2/hr each additional child</li><li>3-hour minimum · no deposit</li></ul>
           </article>
-          <article class="rate-card featured">
+          <article class="rate-card featured" data-reveal style="--d:180ms">
             <p class="ribbon">Saturdays available</p>
             <h3>Weekend Date Night</h3>
             <p class="price"><span>$30</span>/hr</p>
             <ul><li>Up to 2 children</li><li>4-hour minimum</li><li>Dinner, bath &amp; bedtime</li></ul>
           </article>
-          <article class="rate-card">
+          <article class="rate-card" data-reveal style="--d:270ms">
             <h3>Newborn Help</h3>
             <p class="price"><span>$30</span>/hr</p>
             <ul><li>Daytime newborn support</li><li>4-hour minimum</li><li>Rest &amp; recovery for parents</li></ul>
           </article>
         </div>
-        <p class="rate-note">Ongoing nanny care is arranged under a simple written agreement.</p>
+        <p class="rate-note" data-reveal>Ongoing nanny care is arranged under a simple written agreement.</p>
 
         <div class="info-grid">
-          <div class="info-card">
+          <div class="info-card" data-reveal style="--d:0ms">
             <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="11" width="32" height="29" rx="4"/><path d="M8 19h32M16 7v8M32 7v8"/></svg>
             <div><h3>Availability</h3><p>Monday–Friday<br>Saturdays for special occasions</p></div>
           </div>
-          <div class="info-card">
+          <div class="info-card" data-reveal style="--d:90ms">
             <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 43s13-12.2 13-23a13 13 0 0 0-26 0c0 10.8 13 23 13 23z"/><circle cx="24" cy="20" r="4.5"/></svg>
             <div><h3>Service Area</h3><p>The Treasure Valley: Boise, Meridian, Eagle, Nampa &amp; Caldwell</p></div>
           </div>
@@ -285,10 +286,10 @@
     <!-- POLICIES -->
     <section class="section policies" id="policies" aria-labelledby="policies-title">
       <div class="container policies-grid">
-        <figure class="policies-photo soft-photo">
+        <figure class="policies-photo soft-photo" data-reveal="left">
           <img src="photos/policies.jpg" width="1184" height="1440" alt="Stephanie smiling on a tree-lined street glowing with golden autumn leaves" loading="lazy" decoding="async">
         </figure>
-        <div>
+        <div data-reveal style="--d:120ms">
           <p class="eyebrow">Good to know</p>
           <h2 id="policies-title">Policies, kept simple</h2>
           <dl class="policy-list">
@@ -303,7 +304,7 @@
 
     <!-- TESTIMONIALS PLACEHOLDER -->
     <section class="testimonials" aria-labelledby="testimonials-title">
-      <div class="container narrow">
+      <div class="container narrow" data-reveal>
         <img src="assets/brand/mark.svg" alt="" width="44" height="46" loading="lazy">
         <h2 id="testimonials-title">Kind words from families</h2>
         <p>Coming soon. Families’ words will appear here as Little Arrows grows.</p>
@@ -313,7 +314,7 @@
     <!-- CONTACT -->
     <section class="section contact" id="contact" aria-labelledby="contact-title">
       <div class="container contact-grid">
-        <div class="contact-side">
+        <div class="contact-side" data-reveal>
           <p class="eyebrow">Let’s connect</p>
           <h2 id="contact-title">Request care</h2>
           <p>Tell me a little about your family and what you’re looking for. I’ll reply personally to set up a time to talk and meet.</p>
@@ -323,7 +324,7 @@
           <p class="contact-email">Prefer email? <a data-email href="#contact-form">Email Stephanie</a></p>
         </div>
 
-        <form id="contact-form" class="contact-form" action="/api/contact" method="post" novalidate>
+        <form id="contact-form" data-reveal style="--d:120ms" class="contact-form" action="/api/contact" method="post" novalidate>
           <div class="field-row">
             <div class="field">
               <label for="parent-name">Parent name <span aria-hidden="true">*</span></label>
