@@ -4,8 +4,8 @@ Every photo on the website lives in this folder. To change a photo, upload a new
 
 | File | Where it shows | Best shape / size |
 |---|---|---|
-| `hero-desktop.jpg` | Big top photo on computers and tablets | Landscape, about 3:2, 2000 × 1300 px. The left side fades behind the headline, so keep the person **right of center**. |
-| `hero-mobile.jpg` | Big top photo on phones | Portrait, 3:4, about 1500 × 2000 px. Keep the face in the **upper third**; the bottom fades out. |
+| `hero-desktop.jpg` | Big top photo on computers, sideways tablets and sideways phones | Landscape, about 3:2, 2000 × 1300 px. The left side fades behind the headline, so keep the person **right of center**. |
+| `hero-mobile.jpg` | Big top photo on phones and upright tablets | Portrait, 3:4, about 1200 × 1600 px. Keep the face in the **upper third**; the bottom fades out. |
 | `about.jpg` | "Hi, I'm Stephanie" (arched frame) | Portrait, 4:5, about 1400 × 1750 px |
 | `extras.jpg` | "Going above and beyond" (soft oval) | Landscape, 4:3, about 2000 × 1500 px. The edges fade, so center the subject. |
 | `home.jpg` | "Care that feels like family" | Square, about 1000 × 1000 px |
@@ -37,3 +37,4 @@ Open `assets/css/styles.css`. Near the top is a block named **PHOTO FOCAL POINTS
 The two numbers are left-to-right and top-to-bottom: `50% 0%` keeps the top of the photo, `50% 100%` keeps the bottom, and `0% 50%` keeps the left side.
 Click the pencil icon to edit the file on GitHub, change the number, and commit.
 For the desktop hero, `--zoom-hero-desktop` controls how wide the photo is drawn: `100%` is no zoom, and the current `118%` pushes the person further right.
+`--focus-hero-stacked` sets the crop of `hero-desktop.jpg` on small phones turned sideways, where the photo sits above the text.

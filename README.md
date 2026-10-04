@@ -26,9 +26,10 @@ Plain HTML/CSS with a little vanilla JS. **No build step.** Ready for **Cloudfla
 ├── assets/
 │   ├── css/styles.css         # PHOTO FOCAL POINTS block at the top
 │   ├── js/config.js           # ← ONE place for the contact email (placeholder for now)
-│   ├── js/main.js             # nav, form submit, fills email from config
+│   ├── js/main.js             # nav, reveal-on-scroll, form submit, fills email from config
+│   ├── js/motion.js           # tiny head script: turns animations on (skipped for reduced motion)
 │   ├── fonts/                 # self-hosted, subset WOFF2 (Cormorant Garamond, Mulish, Pinyon Script; SIL Open Font License)
-│   └── brand/                 # logo-horizontal(.svg/-light.svg), logo-stacked.svg, mark.svg, favicon.svg, icon-*.png
+│   └── brand/                 # logo-horizontal(.svg/-light.svg), logo-stacked.svg, mark.svg, favicon.svg, icon-180/192/512.png
 └── functions/
     └── api/contact.js         # Cloudflare Pages Function → POST /api/contact
 ```
@@ -46,13 +47,14 @@ npx wrangler pages dev .         # or: run the real Pages Function locally
 ## GitHub Pages demo (current)
 
 GitHub Pages serves this repo from the `main` branch root. It is static hosting only, so **the contact form can't send from the demo**.
-On `*.github.io` the form shows a friendly note ("This is a preview… please email Stephanie at …") instead of an error.
+On `*.github.io` the form shows a friendly note ("The online form isn't connected yet… please email Stephanie at …") instead of an error.
 Once the site moves to Cloudflare Pages, the form works automatically through `functions/api/contact.js`.
 After moving to Cloudflare, you can turn off GitHub Pages (Settings → Pages) and make the repo private if you want.
 
 ## Redeploying to Cloudflare (current setup: direct upload)
 
-From a copy of this repo: `npx wrangler pages deploy . --project-name little-arrows-nanny-care --branch main`
+From a copy of this repo **without** `.git`, `README.md` and `photos/README.md` (they don't need to be public on the site):
+`npx wrangler pages deploy . --project-name little-arrows-nanny-care --branch main`
 
 ## Auto-deploys from GitHub (one-time setup, needs the Cloudflare dashboard)
 
@@ -89,7 +91,7 @@ Cloudflare can't switch a direct-upload project to Git later, so pick one of the
 ## Email & contact form
 
 The form posts to `/api/contact` (`functions/api/contact.js`). It validates input, drops bot submissions via a hidden honeypot field,
-and returns JSON (or redirects to `/thanks.html` when JS is off). **Until email is configured (no `RESEND_API_KEY`), nothing is sent or stored:** visitors see a friendly “the form isn’t connected yet, please email Stephanie at …” message instead of an error.
+and returns JSON (or, when JS is off, redirects to `/thanks.html`). **Until email is configured (no `RESEND_API_KEY`), nothing is sent or stored:** visitors see a friendly “the form isn’t connected yet, please email Stephanie at …” message instead of an error.
 Finish the setup below **before** sharing the site.
 
 1. **Set the real inbox:** edit `assets/js/config.js` → `contactEmail` (currently the placeholder `hello@stephaniemeninga.com`).
@@ -118,8 +120,13 @@ Privacy: the page promises inquiry data is used only to reply and is never share
 
 ## Tech notes
 
-- Performance: self-hosted subset fonts (about 180 KB total, `font-display: swap`); the hero is preloaded with `fetchpriority=high`;
-  all other photos are single, well-compressed JPEGs, lazy-loaded; no frameworks or third-party requests.
+- Performance: self-hosted subset fonts (about 180 KB total, `font-display: swap`; the three hero fonts are preloaded); the hero photo is
+  preloaded with `fetchpriority=high`; all other photos are single, well-compressed JPEGs, lazy-loaded; no frameworks or third-party requests.
+- Layout: the hero puts the photo behind the text on wide screens and stacks it above the text on phones and upright tablets
+  (`(max-width: 760px), (orientation: portrait) and (max-width: 1023px)`). That same rule decides which hero photo loads
+  (see the `<source>` and preloads in `index.html`), so keep them in sync if you change it.
+- Motion: gentle fade/slide reveals (IntersectionObserver + CSS). Off for reduced-motion users; content is always visible without JS.
+- Tested in Chromium and WebKit (Safari) on phones, tablets (portrait and landscape), laptops and desktop.
 - SEO: title/description, canonical, Open Graph/Twitter card, `ChildCare` (LocalBusiness) JSON-LD with `areaServed` cities only (no street address), sitemap, robots.
 - Accessibility: semantic landmarks, skip link, labeled form fields, alt text on every photo, AA contrast for text, visible focus, and reduced-motion support.
 - `_headers` sets a strict CSP (self only). If you later add Turnstile or analytics, allow their domains there.
