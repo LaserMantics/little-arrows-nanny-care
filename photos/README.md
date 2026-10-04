@@ -37,4 +37,4 @@ Open `assets/css/styles.css`. Near the top is a block named **PHOTO FOCAL POINTS
 The two numbers are left-to-right and top-to-bottom: `50% 0%` keeps the top of the photo, `50% 100%` keeps the bottom, and `0% 50%` keeps the left side.
 Click the pencil icon to edit the file on GitHub, change the number, and commit.
 For the desktop hero, `--zoom-hero-desktop` controls how wide the photo is drawn: `100%` is no zoom, and the current `118%` pushes the person further right.
-`--focus-hero-stacked` sets the crop of `hero-desktop.jpg` on small phones turned sideways, where the photo sits above the text.
+`--focus-hero-stacked` sets the crop of `hero-desktop.jpg` on small phones turned sideways, where the photo sits above the text. `--focus-hero-short` sets its crop on bigger phones turned sideways (short, wide screens); a lower second number leaves more room above her head so it clears the header.

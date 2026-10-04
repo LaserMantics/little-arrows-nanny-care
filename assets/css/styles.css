@@ -20,6 +20,7 @@
 :root{
   --focus-hero-desktop: 0% 40%;   /* photos/hero-desktop.jpg (wide screens). Text sits on the left, so keep the person right of center */
   --zoom-hero-desktop: 118%;      /* how wide the desktop hero is drawn; 100% = no extra zoom */
+  --focus-hero-short: 0% 22%;     /* photos/hero-desktop.jpg on short landscape screens (big phones sideways): lower % = more headroom above her */
   --focus-hero-stacked: 56% 10%;  /* photos/hero-desktop.jpg on small landscape screens, where the photo sits above the text */
   --focus-hero-mobile: 50% 18%;   /* photos/hero-mobile.jpg (phones and portrait tablets) */
   --focus-about: 50% 30%;         /* photos/about.jpg */
@@ -296,7 +297,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--chestnut
 /* Larger phones turned sideways (wide but short): keep the wide hero compact */
 @media (min-width:761px) and (max-height:540px) and (orientation:landscape){
   .hero{min-height:100vh;min-height:100svh}
-  .hero-media img{width:calc(var(--zoom-hero-desktop) + 10%)}
+  .hero-media img{width:calc(var(--zoom-hero-desktop) + 10%);object-position:var(--focus-hero-short)}
   .hero-content{padding:5.5rem 0 2.5rem}
   .hero-content>*{max-width:min(540px,52vw)}
   .hero .script{font-size:clamp(3rem,15vh,4.6rem)}
