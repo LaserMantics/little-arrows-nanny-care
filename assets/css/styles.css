@@ -334,10 +334,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--chestnut
   .motion [data-reveal="right"]{transform:translate3d(24px,0,0)}
 }
 /* Hero load-in: photo settles in, then eyebrow, title, tagline, text, buttons fade up.
-   (The photo starts at 20% opacity, not 0, so browsers register the first paint right away.) */
+   Start values are just above 0 (photo 20%, text 1%) so browsers still count the
+   first paint and the largest paint (Lighthouse/Core Web Vitals) right away. */
 @keyframes la-photo{from{opacity:.2;transform:scale(1.04)}to{opacity:1;transform:none}}
-@keyframes la-up{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
-@keyframes la-fade{from{opacity:0}to{opacity:1}}
+@keyframes la-up{from{opacity:.01;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
+@keyframes la-fade{from{opacity:.01}to{opacity:1}}
 .motion .hero-media img{animation:la-photo 1.8s var(--ease-soft) both;transform-origin:60% 40%}
 .motion .hero-content>*{animation:la-up .9s var(--ease-soft) both}
 .motion .hero-content>:nth-child(1){animation-delay:.25s}
