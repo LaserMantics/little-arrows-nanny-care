@@ -22,10 +22,18 @@ if (root.classList.contains("motion") && "IntersectionObserver" in window) {
     // Keyboard users: anything focused inside is shown immediately.
     el.addEventListener("focusin", () => { settle(el); io.unobserve(el); }, { once: true });
   });
-  // Photos hidden on small screens can't be observed; if the window is resized
-  // (e.g. a tablet rotated), simply show anything still waiting.
-  matchMedia("(min-width: 861px)").addEventListener("change", () =>
-    revealEls.forEach((el) => el.hasAttribute("data-reveal") && settle(el)), { once: true });
+  // Safety net: anything already on screen or scrolled past (after a fast jump,
+  // an anchor link, or a photo that only appears after rotating) is shown even
+  // if the observer missed it.
+  let ticking = false;
+  const sweep = () => {
+    ticking = false;
+    const pending = revealEls.filter((el) => el.hasAttribute("data-reveal") && !el.classList.contains("is-in"));
+    if (!pending.length) return window.removeEventListener("scroll", onSweep);
+    pending.forEach((el) => { const r = el.getBoundingClientRect(); if (r.height && r.top < innerHeight * 0.92) { settle(el); io.unobserve(el); } });
+  };
+  const onSweep = () => { if (!ticking) { ticking = true; requestAnimationFrame(sweep); } };
+  window.addEventListener("scroll", onSweep, { passive: true });
 } else {
   root.classList.remove("motion");
 }
@@ -59,6 +67,16 @@ if (toggle && nav) {
 const onScroll = () => header && header.classList.toggle("scrolled", window.scrollY > 24);
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
+
+// Keep the focused form field in view when the on-screen keyboard opens.
+if (window.visualViewport) {
+  visualViewport.addEventListener("resize", () => {
+    const el = document.activeElement;
+    if (el && el.matches("#contact-form input, #contact-form select, #contact-form textarea")) {
+      el.scrollIntoView({ block: "center", behavior: "instant" });
+    }
+  });
+}
 
 // Contact form (progressive enhancement: works without JS via POST → /thanks.html on Cloudflare Pages)
 const form = document.getElementById("contact-form");
@@ -98,7 +116,6 @@ if (form) {
       if (data.notConfigured) { showPreviewNote(); return; } // email service not set up yet
       if (!res.ok || data.ok === false) throw new Error(data.error || "Something went wrong.");
       form.reset();
-      form.classList.add("is-sent");
       status.classList.add("is-success");
       status.innerHTML =
         "<strong>Thank you!</strong> Your note is on its way. Stephanie will reply personally, usually within one business day.";
