@@ -117,7 +117,7 @@ function notConfigured(wantsJson) {
   if (wantsJson) return reply(true, 200, { ok: false, notConfigured: true, email });
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Please email instead | Little Arrows Nanny Care</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/css/styles.css"></head>
-<body class="simple-page"><main class="simple"><img src="/assets/brand/logo-stacked.svg" alt="Little Arrows Nanny Care" width="420" height="220">
+<body><main class="simple"><img src="/assets/brand/logo-stacked.svg" alt="Little Arrows Nanny Care" width="420" height="220">
 <h1>Thanks for reaching out!</h1><p>The online form isn’t connected yet, so your message wasn’t sent. Please email Stephanie at <a href="mailto:${email}">${email}</a>.</p>
 <a class="btn" href="/">Back to the site</a></main></body></html>`;
   return new Response(html, { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
